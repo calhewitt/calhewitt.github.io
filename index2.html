@@ -1,0 +1,86 @@
+<!--
+
+Hello, world.
+
+-->
+
+<!DOCTYPE html>
+<title>Cal Hewitt</title>
+<script src="http://use.edgefonts.net/vollkorn;chunk.js"></script>
+<style>
+body {
+  text-align: center;
+}
+#name {
+  font-family: Chunk;
+  width: 100%;
+  color: #333333;
+  margin-top: 50px;
+}
+#email {
+  font-family: Chunk;
+  font-size: 2em;
+  color: #333333;
+  margin-top: -10px;
+}
+#cal {
+  border-radius: 50%;
+  width: 20%;
+  margin-top: 15px;
+}
+.text {
+  font-family: Vollkorn;
+  margin-left: 13%;
+  margin-right: 13%;
+  font-size: 2.5em;
+  color: #333333;
+  margin-top: 40px;
+  line-height: 120%;
+}
+a {
+  color: #333333;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
+}
+#footer {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+#footer img {
+  position: relative;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 50px;
+}
+</style>
+
+<div id = "name">Cal Hewitt</div>
+<div id = "email">
+  <a href = "mailto:hello@calhewitt.xyz">hello@calhewitt.xyz</a> //
+  <a download href = "calhewitt.asc">Public Key</a>
+</div>
+<img src = "cal.jpg" id="cal">
+<div class = "text">
+Hi, I'm Cal. I'm a 17 year-old student from Canterbury, UK, and am leading the <a href = "https://en.wikipedia.org/wiki/LUCID">LUCID Experiment</a>,
+  a project <a href = "http://sen.com/news/school-students-map-cosmic-rays-and-solar-wind">using CERN tech to study radiation in space.</a>
+I have also <a href = "https://sciencenode.org/feature/students-use-grid-computing-to-analyze-data-for-their-class-science-project-its-in-space.php">
+  worked with GridPP</a>, part of the largest scientific computing network in the world, and
+  <a href = "http://www.ras.org.uk/news-and-press/2665-first-results-from-lucid-schools-start-mapping-cosmic-rays-and-solar-wind">
+  spoken at last year's National Astronomy Meeting</a>.
+Please <a href = "mailto:work@calhewitt.xyz">get in touch</a>, or check out my
+  <a target="_blank" href = "http://github.com/calhewitt">latest work on Github</a>!
+</div>
+
+<div id = "footer">
+  <a href = "http://github.com/calhewitt/"><img src = "octocat.png"></a>
+  <a href = "http://twitter.com/hewitt_cal"><img src = "bird.png"></a>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="fittext.js"></script>
+<script>
+  $("#name").fitText(0.7)
+</script>
