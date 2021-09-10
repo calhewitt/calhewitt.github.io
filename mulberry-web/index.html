@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+
+
+<style>
+body{
+  background:black;
+  cursor: none;
+}
+.layer {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left:0;
+}
+#dragonfly {
+  position:fixed;
+  width: 300px;
+  height: 300px;
+  margin-left: -150px;
+  margin-top: -250px;
+  background-image: url(a.gif);
+  background-size: cover;
+}
+</style>
+
+
+<div id = "container"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<div id = "dragonfly"></div>
+
+<script>
+
+function flip() {
+  $(".layer").each(function() {
+    $(this).css("opacity", Math.random())
+  })
+}
+
+var fileList = "000 river 1.png;000 river 2.png;000 river 3.png;010 back-mulbs 1.png;011 back-mulbs 1.png;020 middle-mulbs 1.png;021 middle-mulbs 1.png;022 middle-mulbs 1.png;023 middle-mulbs 1.png;024 middle-mulbs 1.png;025 middle-mulbs 1.png;030 front-mulbs 1.png;031 front-mulbs 1.png;032 front-mulbs 1.png;033 front-mulbs 1.png;034 front-mulbs 1.png;035 front-mulbs 1.png;040 mid-mulb 1.png;040 mid-mulb 2.png;040 mid-mulb 3.png;040 mid-mulb 4.png;050 back-mulb 1.png;050 back-mulb 2.png;050 back-mulb 3.png;050 back-mulb 4.png;060 front-mulb 1.png;060 front-mulb 2.png;060 front-mulb 3.png;080 willow 1.png;080 willow 2.png;090 front-foliage 1.png;090 front-foliage 2.png;090 front-foliage 3.png".split(";")
+
+$(document).ready(function() {
+  $(fileList).each(function() {
+    $("#container").append("<img src = 'layers/" + this + "' class = 'layer'>")
+  })
+
+  var intervalID = window.setInterval(flip, 1000);
+
+})
+
+window.addEventListener("mousemove", function(event) {
+  $("#dragonfly").css("top", event.y)
+  $("#dragonfly").css("left", event.x)
+})
+
+
+
+
+</script>
