@@ -1,0 +1,47 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<canvas id="canvas" width=1000 height =800></canvas></br>
+
+
+<style>
+body{ background-color: ivory; }
+canvas{border:1px solid red;
+}
+</style>
+
+<script>
+var canvas=document.getElementById("canvas");
+var ctx=canvas.getContext("2d");
+var lastX;
+var lastY;
+var mouseX;
+var mouseY;
+var canvasOffset=$("#canvas").offset();
+var offsetX=canvasOffset.left;
+var offsetY=canvasOffset.top;
+var isMouseDown=true;
+
+function handleMouseMove(e){
+  mouseX=parseInt(e.clientX-offsetX);
+  mouseY=parseInt(e.clientY-offsetY);
+
+  // Put your mousemove stuff here
+  if(isMouseDown){
+    ctx.beginPath();
+      ctx.globalCompositeOperation="destination-out";
+      ctx.lineWidth=80;
+      ctx.lineCap = "round";
+      ctx.moveTo(lastX,lastY);
+      ctx.lineTo(mouseX,mouseY);
+      ctx.stroke();
+
+    lastX=mouseX;
+    lastY=mouseY;
+  }
+}
+
+$("#canvas").mousemove(function(e){handleMouseMove(e);});
+
+var ctx = canvas.getContext("2d");
+ctx.fillStyle = "blue";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+</script>
