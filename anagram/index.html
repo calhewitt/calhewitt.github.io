@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<style>
+body {
+    background: #ddd;
+    display: grid;
+    place-items: center; 
+    font-size: 20pt;
+}
+* {
+    font-family: 'Times';
+}
+.idvletter{
+    width: 30px;
+}
+#lettersDisplay{
+    margin: 0 auto;
+}
+.letter {
+    width: 38px;
+    float:left;
+    text-align: center;
+    text-transform: uppercase;
+}
+input {
+    text-transform: uppercase;
+    font-size:20pt;
+    text-align:center;
+}
+#individualLetters, #allLettersCont {
+    height: 50px;
+}
+#allLetters{
+    width: 600px;
+}
+#title {
+    font-variant: small-caps;
+    font-size: 60pt;
+}
+p {
+    width: 600px;
+    font-size: 14pt;
+}
+
+</style>
+
+<title>Anagram helper</title>
+
+<div id="title">Anagram Helper</div>
+<p>A clone of the Guardian's anagram helper which I use when solving cryptic crosswords from other papers. Enter a word to anagram; use the second row of tiles to fix letters in place. Space or enter to shuffle.</p>
+
+<div id = "allLettersCont">
+<input id="allLetters"></div>
+
+<div id = "individualLetters"></div>
+
+<div id = "lettersDisplay"></div>
+
+<script src="jq.js"></script>
+<script>
+
+function removeElements(a, b) {
+    const result = [...a]; // Create a copy of arrayA to avoid mutating the original
+    b.forEach(item => {
+        const index = result.indexOf(item); // Find the index of the item in arrayA
+        if (index !== -1) {
+            result.splice(index, 1); // Remove the first occurrence
+        }
+    });
+    return result;
+}
+
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1)); // Random index from 0 to i
+        [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements
+    }
+    return arr;
+}
+
+$("#allLetters").on("input", function() {
+    const allLetters = $("#allLetters").val();
+    $("#individualLetters").empty();
+    $("#lettersDisplay").empty();
+    for (let i = 0; i < allLetters.length; i++) {
+        $("#individualLetters").append("<input class = 'idvletter' maxlength='1' id='" + i +"'>");
+    }
+
+    $(".idvletter").on("input", function() {
+        if ($(this).val != "") {
+            $("#" + (Number(this.id) + 1)).focus();
+        }
+    });
+
+    $(".idvletter").keydown(function(event) {
+        console.log(event.key);
+        if (event.key == 'Backspace') {
+            if ($(this).val() == "") {
+                $("#" + (Number(this.id) - 1)).val("");
+                $("#" + (Number(this.id) - 1)).focus();
+            }
+            else {
+                $(this).val("");
+                return false;
+            }
+        }
+        else if (event.key == "ArrowLeft") {
+            $("#" + (Number(this.id) - 1)).focus();
+            $("#" + (Number(this.id) - 1))[0].setSelectionRange(1, 1);
+            return false;
+        }
+        else if (event.key == "ArrowRight" || event.key == "Tab") {
+            $("#" + (Number(this.id) + 1)).focus();
+            $("#" + (Number(this.id) + 1))[0].setSelectionRange(1, 1);
+            return false;
+        }
+        else if ($(this).val() != "") {
+            if (event.keyCode >= 65 && event.keyCode <= 90) {
+                $(this).val("");
+                return true;
+            }
+        }
+    });
+
+    $(".idvletter").click(function() {
+        $(this)[0].setSelectionRange(1,1);
+    });
+
+    
+
+});
+
+$(document).keydown(function(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+    $("#lettersDisplay").empty();
+
+    allLetters = $("#allLetters").val();
+    const doNotInclude = [];
+    const placesToShuffle = [];
+    for (let i = 0; i < allLetters.length; i++) {
+        const letter = $("#" + i).val();
+        if (letter == "") {
+            placesToShuffle.push(i);
+        }
+        else {
+            doNotInclude.push(letter);
+        }
+    }
+    const toShuffle = removeElements(allLetters.split(""), doNotInclude);
+    const shuffled = shuffleArray(toShuffle);
+    
+    iInclude = 0;
+    for (let i = 0; i < allLetters.length; i++) {
+        const letter = $("#" + i).val();
+        if (letter != "") {
+            $("#lettersDisplay").append("<div class='letter'>" + letter + "</div>");
+        }
+        else {
+            $("#lettersDisplay").append("<div class='letter'>" + shuffled[iInclude] + "</div>");
+            iInclude++;
+        }
+    }
+    return false;
+}});
+
+$("#allLetters").on("click", function() {
+        $(this).select();
+        return true;
+});
+
+
+</script>
