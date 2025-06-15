@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<title>Cards</title>
+
+
+
+<div id = "container">
+  <h1>CARDS</h1>
+  <h2>Player <span id = "player"></span>; Game ID: <span id = "gid"></span></h2>
+<img id = "current-card">
+
+<div id = "buttons">
+<button onclick = "prev()">Previous</button>
+<button onclick = "next()">Next</button>
+</div>
+<br><br>
+<center><a href = "cards.html">New Game</a></center>
+</div>
+
+<div style = "display:none">
+<img src = "images/0.jpeg">
+<img src = "images/1.jpeg">
+<img src = "images/2.jpeg">
+<img src = "images/3.jpeg">
+<img src = "images/4.jpeg">
+<img src = "images/5.jpeg">
+<img src = "images/6.jpeg">
+<img src = "images/7.jpeg">
+<img src = "images/8.jpeg">
+<img src = "images/9.jpeg">
+<img src = "images/10.jpeg">
+<img src = "images/11.jpeg">
+<img src = "images/12.jpeg">
+<img src = "images/13.jpeg">
+<img src = "images/14.jpeg">
+<img src = "images/15.jpeg">
+<img src = "images/16.jpeg">
+<img src = "images/17.jpeg">
+<img src = "images/18.jpeg">
+<img src = "images/19.jpeg">
+<img src = "images/20.jpeg">
+<img src = "images/21.jpeg">
+<img src = "images/22.jpeg">
+<img src = "images/23.jpeg">
+</div>
+
+
+<style>
+#container {
+  width: 800px;
+  margin: 0 auto;
+}
+h1, h2 {
+  text-align: center;
+}
+#current-card {
+  width: 400px;
+  margin-left: 200px;
+  margin-top: 20px;
+
+}
+#buttons{
+  width: 800px;
+  text-align: center;
+  margin-top: 20px;
+}
+</style>
+
+<script>
+
+var cCount = 0;
+var hand;
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};
+
+function next() {
+  if (cCount < 12) {
+    $("#current-card").attr("src", "images/" + hand[cCount] + ".jpeg")
+    cCount ++;
+  }
+}
+
+function prev() {
+  if (cCount > 1) {
+    $("#current-card").attr("src", "images/" + hand[cCount - 2] + ".jpeg")
+    cCount--;
+  }
+}
+
+$("document").ready(function() {
+  var handCoded = getUrlParameter("h");
+  var player = getUrlParameter("p");
+  var gid = getUrlParameter("g");
+  $("#gid").text(gid)
+  $("#player").text(player)
+
+  var handstr = atob(handCoded)
+  hand = handstr.split(",")
+
+  next()
+})
+
+
+
+</script>

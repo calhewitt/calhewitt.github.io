@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<title>Cards</title>
+<center>
+<h2>Benjamin of Ruddy Cornwall</h2>
+Presnets
+<h1>CARDS</h1>
+
+<hr>
+
+Give your opponent this link: <input type = "text" id = "play2-link" style="width:200px" readonly onfocus="$(this).select()">
+<br><br>
+Then click
+<br><br>
+<button onclick = "go()">Play</button>
+</center>
+<script>
+
+var p1uri;
+var gid;
+
+function go() {
+  window.location = "play-at.html?p=1&h=" + p1uri + "&g=" + gid;
+}
+
+$("document").ready(function() {
+  var unshuffled = []
+
+  gid = Math.floor(Math.random() * 100000);
+
+  for (i = 0; i < 24; i++) {
+    unshuffled.push(i.toString())
+  }
+
+  var shuffled = unshuffled
+    .map((a) => ({sort: Math.random(), value: a}))
+    .sort((a, b) => a.sort - b.sort)
+    .map((a) => a.value)
+
+  var player1 = shuffled.slice(0, 12).toString()
+  var player2 = shuffled.slice(12, 24).toString()
+
+
+  p1uri = encodeURIComponent(btoa(player1))
+  var p2uri = encodeURIComponent(btoa(player2))
+  //console.log(atob(decodeURIComponent(p1uri)))
+
+  var dir = window.location.href.match(/(.*)[\/\\]/)[1]||'';
+
+  $("#play2-link").val(dir +  "/" + "play-at.html?p=2&h=" + p2uri + "&g=" + gid)
+  $("#yes").value = "yes"
+})
+
+</script>
